@@ -1,13 +1,18 @@
 package encryptor.controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 import encryptor.model.Substitution;
+import encryptor.model.SubstitutionKey;
 import encryptor.model.Transposition;
 import encryptor.view.Action;
 import encryptor.view.Console;
 import encryptor.view.InvalidInputException;
+import encryptor.view.Mode;
 
 public class User {
   private Console console;
@@ -43,21 +48,20 @@ public class User {
   }
 
   private void substitute() {
-    System.out.println("\nSubstitution");
-
-    // TODO: Implementera nedanstående
-    /*
-    Mode mode = console.getMode();
+    Mode mode = getMode();
     SubstitutionKey key = console.getSubstitutionKey();
     File file = console.getFile();
     String text = getTextFromFile(file);
 
-    if (mode == Mode.ENCRYPT) {
-      substitution.encrypt(key, text);
-    } else if (mode == Mode.DECRYPT) {
-      substitution.decrypt(key, text);
+    if (mode == Mode.ENCRYPTION) {
+      String cipher = substitution.encrypt(key, text);
+      File cipherfile = createFile("cipher.txt");
+      writeToFile(cipherfile, cipher);
+      console.printFilePath(cipherfile);
+    } else if (mode == Mode.DECRYPTION) {
+      // TODO:
+      // substitution.decrypt(key, text);
     }
-    */
   }
 
   private void transpose() {
@@ -75,11 +79,53 @@ public class User {
       }
       reader.close();
       text = buffer.toString();
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
+    } catch (FileNotFoundException e) {
+      System.out.println("The file was not found, quits program");
       System.exit(1);
     }
 
     return text;
+  }
+
+  public Mode getMode () {
+    Mode mode = null;
+
+    while (mode == null) {
+      try {
+        mode = console.getMode();
+      } catch (InvalidInputException e) {
+        console.printErrorMessage(e.getMessage());
+      }
+    }
+
+    return mode;
+  }
+
+  private File createFile(String filename) {
+    File file = new File(filename);
+
+    try {  
+      if (file.exists()) {
+        file.delete();
+      }
+
+      file.createNewFile();
+    } catch (IOException e) {
+      console.printErrorMessage("Failed to create textfile, quits program");
+      System.exit(1); 
+    }
+
+    return file;
+  }
+
+  private void writeToFile(File file, String text) {
+    try {
+      FileWriter fileWriter = new FileWriter(file);
+      fileWriter.write(text);
+      fileWriter.close();
+    } catch (IOException e) {
+      console.printErrorMessage("Failed to write to file, quits program");
+      System.exit(1); 
+    }
   }
 }
