@@ -2,23 +2,33 @@ package encryptor.model;
 
 public class Substitution {
 
+  private final int maxValue = 255;
+
   public String encrypt(SubstitutionKey keyobj, String plaintext) {
-    char keychar = keyobj.getKey();
+    int key = keyobj.getKey();
 
-    /*
-    int ascicode = keychar;
-    System.out.println("ASCII-code: " + ascicode);
-    */
+    char[] chars = plaintext.toCharArray();
 
-    String cipher = "";
-    // TODO: Algoritm
+    for (int i = 0; i < chars.length; i++) {
+      int charvalue = chars[i];
+      int newCharValue = (charvalue + key) % maxValue;
+      chars[i] = (char) newCharValue;
+    }
 
-    return cipher + keychar;
+    return String.valueOf(chars);
   }
 
-  public String decrypt(SubstitutionKey key, String chipher) {
-    // TODO Auto-generated method stub
-    return null;
+  public String decrypt(SubstitutionKey keyobj, String cipher) {
+    int key = keyobj.getKey();
+
+    char[] chars = cipher.toCharArray();
+
+    for (int i = 0; i < chars.length; i++) {
+      int charvalue = chars[i];
+      int newCharValue = (charvalue - key) % maxValue;
+      chars[i] = (char) newCharValue;
+    }
+
+    return String.valueOf(chars);
   }
-  
 }

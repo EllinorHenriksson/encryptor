@@ -1,21 +1,21 @@
 package encryptor.model;
 
 public class SubstitutionKey {
-  private char key;
+  private int key;
 
-  public SubstitutionKey(String key) {
+  public SubstitutionKey(int key) {
     setKey(key);
   }
 
-  public char getKey() {
+  public int getKey() {
     return key;
   }
 
-  private void setKey(String key) {
-    if (key.length() != 1) {
-      throw new IllegalArgumentException("The key must be only one character long");
+  private void setKey(int key) {
+    if (key < 0 || key > 255) {
+      throw new IllegalArgumentException("The key must be a number between 0 and 255");
     }
 
-    this.key = key.charAt(0);
+    this.key = key;
   }
 }

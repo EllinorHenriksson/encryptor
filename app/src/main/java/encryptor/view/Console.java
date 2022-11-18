@@ -54,8 +54,8 @@ public class Console {
     SubstitutionKey key = null;
 
     do {
-      System.out.print("\nEnter the key: ");
-      String input = scan.nextLine();
+      System.out.print("\nEnter a key (0-255): ");
+      int input = Integer.parseInt(scan.nextLine());
       try {
         key = new SubstitutionKey(input);
       } catch (IllegalArgumentException e) {
