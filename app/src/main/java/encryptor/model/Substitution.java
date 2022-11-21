@@ -2,7 +2,7 @@ package encryptor.model;
 
 public class Substitution {
 
-  private final int maxValue = 255;
+  private final int maxValue = 256;
 
   public String encrypt(SubstitutionKey keyobj, String plaintext) {
     int key = keyobj.getKey();
@@ -32,3 +32,4 @@ public class Substitution {
     return String.valueOf(chars);
   }
 }
+

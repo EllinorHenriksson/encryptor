@@ -8,12 +8,13 @@ import encryptor.view.Console;
 import encryptor.view.InvalidInputException;
 import encryptor.view.Mode;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 public class User {
   private Console console;
@@ -73,17 +74,10 @@ public class User {
 
   private String readFromFile(File file) {
     String text = null;
-
     try {
-      StringBuffer buffer = new StringBuffer();
-      Scanner reader = new Scanner(file, "utf-8");
-      while (reader.hasNextLine()) {
-        buffer.append(reader.nextLine());
-      }
-      reader.close();
-      text = buffer.toString();
-    } catch (FileNotFoundException e) {
-      System.out.println("The file was not found, quits program");
+      text = Files.readString(file.toPath(), StandardCharsets.ISO_8859_1);
+    } catch (IOException e) {
+      System.out.println("Failed to read from file, quits program");
       System.exit(1);
     }
 
@@ -123,12 +117,13 @@ public class User {
 
   private void writeToFile(File file, String text) {
     try {
-      FileWriter fileWriter = new FileWriter(file);
-      fileWriter.write(text);
-      fileWriter.close();
-    } catch (IOException e) {
+      FileOutputStream outputStream = new FileOutputStream(file.getAbsolutePath());
+      OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "ISO-8859-1");
+      outputStreamWriter.write(text);
+      outputStreamWriter.close();
+    } catch (Exception e) {
       console.printErrorMessage("Failed to write to file, quits program");
-      System.exit(1); 
+      System.exit(1);
     }
   }
 }
