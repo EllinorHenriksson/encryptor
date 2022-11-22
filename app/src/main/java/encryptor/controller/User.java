@@ -3,6 +3,7 @@ package encryptor.controller;
 import encryptor.model.Substitution;
 import encryptor.model.SubstitutionKey;
 import encryptor.model.Transposition;
+import encryptor.model.TranspositionKey;
 import encryptor.view.Action;
 import encryptor.view.Console;
 import encryptor.view.InvalidInputException;
@@ -69,7 +70,24 @@ public class User {
   }
 
   private void transpose() {
-    System.out.println("\nTransposition");
+    Mode mode = getMode();
+    TranspositionKey key = console.getTranspositionKey();
+    File inputFile = console.getFile();
+    String text = readFromFile(inputFile);
+
+    String result = null;
+    if (mode == Mode.ENCRYPTION) {
+      result = transposition.encrypt(key, text);
+    } else if (mode == Mode.DECRYPTION) {
+      result = transposition.decrypt(key, text);
+    }
+
+    /*
+    Path path = Paths.get(inputFile.getAbsoluteFile().getParent(), "result.txt");
+    File outputFile = createFile(path);
+    writeToFile(outputFile, result);
+    console.printFilePath(outputFile);
+    */
   }
 
   private String readFromFile(File file) {

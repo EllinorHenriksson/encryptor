@@ -1,13 +1,14 @@
 package encryptor.view;
 
+import com.google.common.base.Charsets;
+import encryptor.model.SubstitutionKey;
+import encryptor.model.TranspositionKey;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import encryptor.model.SubstitutionKey;
-
 public class Console {
-  private final Scanner scan = new Scanner(System.in, "utf-8");
+  private final Scanner scan = new Scanner(System.in, Charsets.ISO_8859_1);
 
   public void printWelcomeMessage() {
     System.out.println("\n***** Encryption/decryption tool *****");
@@ -58,6 +59,22 @@ public class Console {
       int input = Integer.parseInt(scan.nextLine());
       try {
         key = new SubstitutionKey(input);
+      } catch (IllegalArgumentException e) {
+        printErrorMessage(e.getMessage());
+      }
+    } while (key == null);
+
+    return key;
+  }
+
+  public TranspositionKey getTranspositionKey() {
+    TranspositionKey key = null;
+
+    do {
+      System.out.print("\nEnter a key: ");
+      String input = scan.nextLine();
+      try {
+        key = new TranspositionKey(input);
       } catch (IllegalArgumentException e) {
         printErrorMessage(e.getMessage());
       }
