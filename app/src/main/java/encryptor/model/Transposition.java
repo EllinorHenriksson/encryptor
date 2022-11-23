@@ -98,6 +98,7 @@ public class Transposition {
         result += chars[i][j];
       }
     }
+
     return result;
   }
 }
