@@ -82,12 +82,10 @@ public class User {
       result = transposition.decrypt(key, text);
     }
 
-    /*
     Path path = Paths.get(inputFile.getAbsoluteFile().getParent(), "result.txt");
     File outputFile = createFile(path);
     writeToFile(outputFile, result);
     console.printFilePath(outputFile);
-    */
   }
 
   private String readFromFile(File file) {

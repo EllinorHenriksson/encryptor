@@ -1,14 +1,14 @@
 package encryptor.view;
 
-import com.google.common.base.Charsets;
 import encryptor.model.SubstitutionKey;
 import encryptor.model.TranspositionKey;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Console {
-  private final Scanner scan = new Scanner(System.in, Charsets.ISO_8859_1);
+  private final Scanner scan = new Scanner(System.in, StandardCharsets.ISO_8859_1);
 
   public void printWelcomeMessage() {
     System.out.println("\n***** Encryption/decryption tool *****");

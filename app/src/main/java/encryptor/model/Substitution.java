@@ -25,7 +25,7 @@ public class Substitution {
 
     for (int i = 0; i < chars.length; i++) {
       int charvalue = chars[i];
-      int newCharValue = (charvalue - key) % maxValue;
+      int newCharValue = (maxValue + charvalue - key) % maxValue;
       chars[i] = (char) newCharValue;
     }
 
