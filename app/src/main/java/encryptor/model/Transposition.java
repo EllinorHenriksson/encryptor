@@ -1,12 +1,7 @@
 package encryptor.model;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.google.common.base.Charsets;
 
 public class Transposition {
 
