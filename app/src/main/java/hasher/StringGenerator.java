@@ -2,12 +2,11 @@ package hasher;
 
 import java.util.Random;
 
-public class randomStringGenerator {
+public class StringGenerator {
   private final String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   private Random rand = new Random();
-  private final int maxLength = 100;
 
-  public String generateRandomString() {
+  public String generateRandomString(int maxLength) {
     StringBuffer buffer = new StringBuffer();
     int length = rand.nextInt(maxLength) + 1;
     for (int i = 0; i < length; i++) {
