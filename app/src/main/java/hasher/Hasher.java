@@ -1,6 +1,6 @@
 package hasher;
 
-public class HashCodeGenerator {
+public class Hasher {
   public int hash(String input) {
     byte[] bytes = input.getBytes();
     int total = 0;

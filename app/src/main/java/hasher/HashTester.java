@@ -3,33 +3,37 @@ package hasher;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class UniformityTester {
-  private HashCodeGenerator hashCodeGenerator = new HashCodeGenerator();
-  private StringGenerator randomStringGenerator = new StringGenerator();
-  private ArrayList<String> inputs = new ArrayList<>();
-  private final int numberOfInput = 2000;
-  private final int maxStringLength = 1000;
+public class HashTester {
+  private Hasher hasher = new Hasher();
   private final int numberOfHashCodes = 256;
 
-  public UniformityTester() {
-    generateInput();
+  public HashTester() {
   }
 
-  private void generateInput() {
-    for (int i = 0; i < numberOfInput; i++) {
-      inputs.add(randomStringGenerator.generateRandomString(maxStringLength));
-    }
-  }
-
-  public void testUniformity() {
+  public void testUniformity(ArrayList<String> inputs) {
     ArrayList<ArrayList<String>> hashTable = createHashTable();
 
     for (int i = 0; i < inputs.size(); i++) {
       String input = inputs.get(i);
-      int hashCode = hashCodeGenerator.hash(input);
+      int hashCode = hasher.hash(input);
       hashTable.get(hashCode).add(input);
     }
 
+    System.out.println("\n********** Uniformity test **********");
+    printHashTable(hashTable);
+    printSummary(hashTable);
+  }
+
+  public void testRandomness(ArrayList<String> inputs) {
+    ArrayList<ArrayList<String>> hashTable = createHashTable();
+
+    for (int i = 0; i < inputs.size(); i++) {
+      String input = inputs.get(i);
+      int hashCode = hasher.hash(input);
+      hashTable.get(hashCode).add(input);
+    }
+
+    System.out.println("\n********** Randomness test **********");
     printHashTable(hashTable);
     printSummary(hashTable);
   }
@@ -45,7 +49,7 @@ public class UniformityTester {
   }
 
   private void printHashTable(ArrayList<ArrayList<String>> hashTable) {
-    System.out.println("\n***** Hash table for uniformity test *****");
+    System.out.println("----- Hash table -----");
     System.out.println("(Bucket: Number of hash codes)");
     for (int i = 0; i < hashTable.size(); i++) {
       System.out.println(i + ": " +  hashTable.get(i).size());
@@ -55,14 +59,25 @@ public class UniformityTester {
   private void printSummary(ArrayList<ArrayList<String>> hashTable) {
     ArrayList<Integer> collisions = getCollisions(hashTable);
 
+    int numberOfHashedStrings = getNumberOfHashedStrings(collisions);
     int maxBucketSize = Collections.max(collisions);
     int numberOfEmptyBuckets = getNumberOfEmptyBuckets(collisions);
     double standardDeviation = calculateStandardDeviation(collisions);
 
-    System.out.println("\n***** Summary of uniformity test *****");
+    System.out.println("\n---- Summary -----");
+    System.out.println("Number of hashed strings: " + numberOfHashedStrings);
+    System.out.println("Number of hash buckets: " + collisions.size());
     System.out.println("Max bucket size: " + maxBucketSize);
     System.out.println("Number of empty buckets: " + numberOfEmptyBuckets);
     System.out.println("Standard deviation: " + standardDeviation);
+  }
+
+  private int getNumberOfHashedStrings(ArrayList<Integer> collisions) {
+    int sum = 0;
+    for (int i = 0; i < collisions.size(); i++) {
+      sum += collisions.get(i);
+    }
+    return sum;
   }
 
   private ArrayList<Integer> getCollisions(ArrayList<ArrayList<String>> hashTable) {
