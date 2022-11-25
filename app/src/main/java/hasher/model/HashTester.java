@@ -17,7 +17,7 @@ public class HashTester {
       hashTable.get(hashCode).add(input);
     }
 
-    return new TestResult(hashTable);
+    return new TestResult(hashTable, "Uniformity Test");
   }
 
   public TestResult testRandomness(ArrayList<String> inputs) {
@@ -29,7 +29,7 @@ public class HashTester {
       hashTable.get(hashCode).add(input);
     }
 
-    return new TestResult(hashTable);
+    return new TestResult(hashTable, "Randomness Test");
   }
 
   private ArrayList<ArrayList<String>> createHashTable() {

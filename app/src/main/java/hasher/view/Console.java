@@ -4,12 +4,8 @@ import hasher.model.TestResult;
 import java.util.ArrayList;
 
 public class Console {
-
-  public void printMessage(String message) {
-    System.out.println(message);
-  }
-
   public void printTestResult(TestResult result) {
+    System.out.println("\n********** " + result.getTitle() + " **********");
     printHashTable(result.getHashTable());
     printSummary(result);
   }
@@ -19,9 +15,6 @@ public class Console {
     System.out.println("(Bucket: Number of hash codes)");
     for (int i = 0; i < hashTable.size(); i++) {
       System.out.println(i + ": " +  hashTable.get(i).size());
-      for (int j = 0; j < hashTable.get(i).size(); j++) {
-        System.out.println(hashTable.get(i).get(j));
-      }
     }
   }
   

@@ -11,17 +11,17 @@ public class Tester {
   StringGenerator stringGenerator = new StringGenerator();
   Console console = new Console();
   private final int numberOfInputForUniformity = 2000;
-  private final int numberOfInputForRandomness = 1000;
+  private final int numberOfInputForRandomness = 2000;
   private final int maxStringLength = 1000;
 
   public void runTests() {
     ArrayList<String> inputsForUniformity = generateUniformityInput(); 
     TestResult uniformity = hashTester.testUniformity(inputsForUniformity);
+
     ArrayList<String> inputsForRandomness = stringGenerator.generateSimilarStrings(numberOfInputForRandomness);
     TestResult randomness = hashTester.testRandomness(inputsForRandomness);
-    console.printMessage("\n********** Uniformity test **********");
+  
     console.printTestResult(uniformity);
-    console.printMessage("\n********** Randomness test **********");
     console.printTestResult(randomness);
   }
 

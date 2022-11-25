@@ -5,11 +5,13 @@ import java.util.Collections;
 
 public class TestResult {
   ArrayList<ArrayList<String>> hashTable;
-  ArrayList<Integer> collisions;;
+  ArrayList<Integer> collisions;
+  String title;
 
-  TestResult(ArrayList<ArrayList<String>> hashTable) {
+  public TestResult(ArrayList<ArrayList<String>> hashTable, String title) {
     this.hashTable = hashTable;
     setCollisions();
+    this.title = title;
   }
 
   private void setCollisions() {
@@ -18,6 +20,10 @@ public class TestResult {
       collisions.add(hashTable.get(i).size());
     }
     this.collisions = collisions;
+  }
+
+  public String getTitle() {
+    return title;
   }
 
   public ArrayList<ArrayList<String>> getHashTable() {

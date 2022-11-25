@@ -22,11 +22,12 @@ public class StringGenerator {
   public ArrayList<String> generateSimilarStrings(int numberOfStrings) {
     String original = generateRandomStringOfFixedSize(numberOfStrings);
     ArrayList<String> similars = new ArrayList<>();
-    for (int i = 0; i < original.length(); i++) {
-      char[] similar = original.toCharArray();
-      int oldChar = (int) similar[i];
-      int newChar = (oldChar ^ (1 << (0)));
-      similar[i] = (char) newChar;
+    similars.add(original);
+    for (int i = 1; i < original.length(); i++) {
+      char[] similar = similars.get(i - 1).toCharArray();
+      int oldChar = (int) (byte) similar[i];
+      int newChar = (oldChar ^ (1 << (rand.nextInt(7))));
+      similar[i] = (char) (byte) newChar;
       similars.add(String.valueOf(similar));
     }
 
