@@ -1,6 +1,4 @@
-package hasher;
-
-import java.util.ArrayList;
+package hasher.controller;
 
 public class App {
   public static void main(String[] args) {

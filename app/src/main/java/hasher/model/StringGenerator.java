@@ -1,4 +1,4 @@
-package hasher;
+package hasher.model;
 
 import java.util.ArrayList;
 import java.util.Random;

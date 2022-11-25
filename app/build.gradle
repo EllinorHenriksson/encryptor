@@ -26,7 +26,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'hasher.App'
+    mainClass = 'hasher.controller.App'
 }
 
 run {
